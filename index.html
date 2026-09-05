@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Kitchen</title>
+<title>Kitchen and more stuff</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style id="app-style">
   :root{
@@ -87,7 +87,8 @@
   .hero .blurb{ color:var(--hero-blurb); font-size:.92rem; max-width:60ch; }
   .hero .blurb strong{ color:var(--hero-text); }
   .hero-edge{ position:absolute; left:0; right:0; bottom:-1px; width:100%; height:72px; display:block; }
-  .hero-edge path{ fill:var(--bg); }
+  .hero-edge .hero-edge-fill{ fill:var(--bg); }
+  .hero-edge .hero-edge-stroke{ fill:none; stroke:var(--accent); stroke-width:4; }
 
   #page-root{ max-width:1180px; margin:0 auto; padding:2.25rem 1.5rem 4rem; }
 
@@ -99,19 +100,22 @@
   .card-photo{ width:100%; height:100%; object-fit:cover; display:block; }
   .card-photo.placeholder{ display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:.8rem; }
   .ribbon{ position:absolute; top:.65rem; left:.65rem; background:var(--reserved-bg); color:var(--reserved-ink); font-family:'IBM Plex Mono', monospace; font-size:.66rem; letter-spacing:.05em; text-transform:uppercase; padding:.3rem .55rem; border-radius:6px; }
+  .card-photo-wrap.is-reserved .card-photo{ filter:grayscale(1) brightness(.8); }
+  .reserved-lock{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:46px; height:46px; border-radius:50%; background:rgba(36,28,74,.65); display:flex; align-items:center; justify-content:center; color:#fff; }
+  .reserved-lock svg{ width:22px; height:22px; }
   .photo-nav{ position:absolute; top:50%; transform:translateY(-50%); width:30px; height:30px; border-radius:50%; border:none; background:rgba(36,28,74,.55); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; }
   .photo-nav:hover{ background:rgba(36,28,74,.8); }
   .photo-nav svg{ width:16px; height:16px; }
   .photo-prev{ left:.5rem; }
   .photo-next{ right:.5rem; }
   .photo-count{ position:absolute; right:.6rem; bottom:.6rem; background:rgba(36,28,74,.6); color:#fff; font-family:'IBM Plex Mono', monospace; font-size:.68rem; padding:.15rem .45rem; border-radius:5px; }
-  .card-tag{ position:relative; padding:1.1rem 1.15rem 1.2rem; border-top:2px dashed var(--purple-soft); background:var(--surface-2); flex:1; display:flex; flex-direction:column; gap:.4rem; }
+  .card-tag{ position:relative; padding:1.1rem 1.15rem 1.2rem; border-top:2px dashed var(--accent); background:var(--surface-2); flex:1; display:flex; flex-direction:column; gap:.4rem; }
   .name-en{ font-family:'Bitter', Georgia, serif; font-weight:600; font-size:1.12rem; line-height:1.28; color:var(--ink); }
   .name-de{ font-style:italic; color:var(--muted); font-size:.9rem; }
   .price{ font-family:'IBM Plex Mono', monospace; font-variant-numeric:tabular-nums; font-weight:600; font-size:1.28rem; color:var(--accent); margin-top:.1rem; }
-  .btn-telegram{ margin-top:.7rem; display:inline-flex; align-items:center; justify-content:center; gap:.4rem; background:var(--purple); color:#fff; text-decoration:none; font-weight:600; font-size:.88rem; padding:.65rem .9rem; border-radius:9px; transition:filter .15s ease; }
+  .btn-telegram{ margin-top:.7rem; display:inline-flex; align-items:center; justify-content:center; gap:.4rem; background:var(--accent); color:#fff; text-decoration:none; font-weight:600; font-size:.88rem; padding:.65rem .9rem; border-radius:9px; transition:filter .15s ease; }
   .btn-telegram:hover{ filter:brightness(1.08); }
-  .btn-telegram:focus-visible{ outline:2px solid var(--purple); outline-offset:2px; }
+  .btn-telegram:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
 
   .admin-toggle{ position:fixed; right:1.1rem; bottom:1.1rem; width:42px; height:42px; border-radius:50%; border:1px solid var(--border); background:var(--surface); color:var(--muted); display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.6; transition:opacity .15s ease, color .15s ease; z-index:40; }
   .admin-toggle:hover{ opacity:1; color:var(--purple); }
@@ -156,11 +160,11 @@
 <body>
 <header class="hero">
   <div class="hero-inner">
-    <h1>My Kitchen</h1>
-    <p class="subtitle">Meine Küche</p>
-    <p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.<br>Tippe unten bei einem Artikel auf <strong>Ask about item</strong>, um mir direkt zu schreiben und es zu kaufen.</p>
+    <h1>Kitchen and more stuff</h1>
+    <p class="subtitle">Küche und mehr</p>
+    <p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.<br>Klicke unten bei einem Artikel auf <strong>Nach Artikel fragen</strong>, um mir direkt zu schreiben und es zu kaufen.</p>
   </div>
-  <svg class="hero-edge" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45 L1200,100 L0,100 Z"></path></svg>
+  <svg class="hero-edge" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path class="hero-edge-fill" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45 L1200,100 L0,100 Z"></path><path class="hero-edge-stroke" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45"></path></svg>
 </header>
 <div id="page-root">
   <main>
@@ -196,16 +200,16 @@
     });
   }
 
-  var HEAD_EXTRA = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>My Kitchen</title>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">';
+  var HEAD_EXTRA = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Kitchen and more stuff</title>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">';
 
   var BODY_SKELETON = ''
     + '<header class="hero">'
     + '<div class="hero-inner">'
-    + '<h1>My Kitchen</h1>'
-    + '<p class="subtitle">Meine Küche</p>'
-    + '<p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.<br>Tippe unten bei einem Artikel auf <strong>Ask about item</strong>, um mir direkt zu schreiben und es zu kaufen.</p>'
+    + '<h1>Kitchen and more stuff</h1>'
+    + '<p class="subtitle">Küche und mehr</p>'
+    + '<p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.<br>Klicke unten bei einem Artikel auf <strong>Nach Artikel fragen</strong>, um mir direkt zu schreiben und es zu kaufen.</p>'
     + '</div>'
-    + '<svg class="hero-edge" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45 L1200,100 L0,100 Z"></path></svg>'
+    + '<svg class="hero-edge" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path class="hero-edge-fill" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45 L1200,100 L0,100 Z"></path><path class="hero-edge-stroke" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45"></path></svg>'
     + '</header>'
     + '<div id="page-root">'
     + '<main><section id="public-grid" class="grid" aria-label="Items for sale"></section>'
@@ -250,6 +254,10 @@
     });
   }
 
+  function photoSrc(p){
+    return typeof p === 'string' ? p : ((p && p.src) || '');
+  }
+
   function buildPhotoCarousel(item){
     var wrap = document.createElement('div');
     wrap.className = 'card-photo-wrap';
@@ -261,17 +269,21 @@
       wrap.appendChild(ph);
       return wrap;
     }
+    var first = photos[0];
+    if (first && typeof first === 'object' && first.width && first.height){
+      wrap.style.aspectRatio = first.width + ' / ' + first.height;
+    }
     var idx = 0;
     var img = document.createElement('img');
     img.className = 'card-photo';
     img.alt = item.nameEn || item.nameDe || 'Item photo';
-    img.src = photos[0];
+    img.src = photoSrc(photos[0]);
     wrap.appendChild(img);
     if (photos.length > 1){
       var counter = document.createElement('span');
       counter.className = 'photo-count';
       var render = function(){
-        img.src = photos[idx];
+        img.src = photoSrc(photos[idx]);
         counter.textContent = (idx + 1) + '/' + photos.length;
       };
       var prev = document.createElement('button');
@@ -300,10 +312,15 @@
       card.className = 'card';
       var photoWrap = buildPhotoCarousel(item);
       if (item.status === 'reserved'){
+        photoWrap.classList.add('is-reserved');
         var ribbon = document.createElement('span');
         ribbon.className = 'ribbon';
         ribbon.textContent = 'Reserved · Reserviert';
         photoWrap.appendChild(ribbon);
+        var lockOverlay = document.createElement('div');
+        lockOverlay.className = 'reserved-lock';
+        lockOverlay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>';
+        photoWrap.appendChild(lockOverlay);
       }
       card.appendChild(photoWrap);
 
@@ -341,7 +358,7 @@
           var canvas = document.createElement('canvas');
           canvas.width = w; canvas.height = h;
           canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          resolve(canvas.toDataURL('image/jpeg', quality));
+          resolve({ src: canvas.toDataURL('image/jpeg', quality), width: w, height: h });
         };
         img.src = reader.result;
       };
@@ -421,7 +438,7 @@
 
     var rowsHtml = items.slice().reverse().map(function(item){
       var photos = item.photos || (item.photo ? [item.photo] : []);
-      var thumb = photos.length ? photos[0] : '';
+      var thumb = photos.length ? photoSrc(photos[0]) : '';
       var photoLabel = photos.length === 1 ? '1 foto' : (photos.length + ' fotos');
       return ''
         + '<div class="item-row" data-id="' + item.id + '">'
