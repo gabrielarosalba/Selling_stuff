@@ -185,7 +185,16 @@
   'use strict';
 
   var TELEGRAM_USER = 'gabrielarpb';
-  var ADMIN_PASS = 'Jorgis';
+  var ADMIN_PASS_HASH = '1b56eb69048239eee29672061cd72f08f773561f95e5a2751418d982e0279611';
+
+  function sha256Hex(str){
+    var bytes = new TextEncoder().encode(str);
+    return crypto.subtle.digest('SHA-256', bytes).then(function(buf){
+      return Array.prototype.map.call(new Uint8Array(buf), function(b){
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+    });
+  }
 
   var HEAD_EXTRA = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>My Kitchen</title>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">';
 
@@ -393,13 +402,19 @@
       form.addEventListener('submit', function(e){
         e.preventDefault();
         var val = qs('lock-pass').value;
-        if (val === ADMIN_PASS){
-          adminUnlocked = true;
-          try { sessionStorage.setItem('admin_ok', '1'); } catch(e){}
-          renderAdmin();
-        } else {
-          showToast('Contraseña incorrecta.');
+        if (!(window.crypto && window.crypto.subtle)){
+          showToast('Este navegador no puede verificar la contraseña aquí. Abre la página publicada (https://...), no el archivo local.');
+          return;
         }
+        sha256Hex(val).then(function(hash){
+          if (hash === ADMIN_PASS_HASH){
+            adminUnlocked = true;
+            try { sessionStorage.setItem('admin_ok', '1'); } catch(e){}
+            renderAdmin();
+          } else {
+            showToast('Contraseña incorrecta.');
+          }
+        });
       });
       return;
     }
