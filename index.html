@@ -84,8 +84,9 @@
   .hero-inner{ max-width:1180px; margin:0 auto; display:flex; flex-direction:column; gap:.55rem; position:relative; z-index:1; }
   .hero h1{ color:var(--hero-text); font-size:clamp(1.9rem, 3.2vw, 2.6rem); font-weight:700; }
   .hero .subtitle{ font-family:'Bitter', Georgia, serif; font-style:italic; font-weight:400; color:var(--hero-subtitle); font-size:1.05rem; }
-  .hero .blurb{ color:var(--hero-blurb); font-size:.92rem; max-width:60ch; }
+  .hero .blurb{ color:var(--hero-blurb); font-size:.92rem; max-width:60ch; margin:0; }
   .hero .blurb strong{ color:var(--hero-text); }
+  .hero .blurb-de{ margin-top:.7rem; }
   .hero-edge{ position:absolute; left:0; right:0; bottom:-1px; width:100%; height:72px; display:block; }
   .hero-edge .hero-edge-fill{ fill:var(--bg); }
   .hero-edge .hero-edge-stroke{ fill:none; stroke:var(--accent); stroke-width:4; }
@@ -162,7 +163,8 @@
   <div class="hero-inner">
     <h1>Kitchen and more stuff</h1>
     <p class="subtitle">Küche und mehr</p>
-    <p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.<br>Klicke unten bei einem Artikel auf <strong>Nach Artikel fragen</strong>, um mir direkt zu schreiben und es zu kaufen.</p>
+    <p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.</p>
+    <p class="blurb blurb-de">Klicke unten bei einem Artikel auf <strong>Nach Artikel fragen</strong>, um mir direkt zu schreiben und es zu kaufen.</p>
   </div>
   <svg class="hero-edge" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path class="hero-edge-fill" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45 L1200,100 L0,100 Z"></path><path class="hero-edge-stroke" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45"></path></svg>
 </header>
@@ -207,7 +209,8 @@
     + '<div class="hero-inner">'
     + '<h1>Kitchen and more stuff</h1>'
     + '<p class="subtitle">Küche und mehr</p>'
-    + '<p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.<br>Klicke unten bei einem Artikel auf <strong>Nach Artikel fragen</strong>, um mir direkt zu schreiben und es zu kaufen.</p>'
+    + '<p class="blurb">Tap <strong>Ask about item</strong> on anything below to message me directly and buy it.</p>'
+    + '<p class="blurb blurb-de">Klicke unten bei einem Artikel auf <strong>Nach Artikel fragen</strong>, um mir direkt zu schreiben und es zu kaufen.</p>'
     + '</div>'
     + '<svg class="hero-edge" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path class="hero-edge-fill" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45 L1200,100 L0,100 Z"></path><path class="hero-edge-stroke" d="M0,45 C100,15 200,15 300,45 C400,75 500,75 600,45 C700,15 800,15 900,45 C1000,75 1100,75 1200,45"></path></svg>'
     + '</header>'
@@ -269,14 +272,15 @@
       wrap.appendChild(ph);
       return wrap;
     }
-    var first = photos[0];
-    if (first && typeof first === 'object' && first.width && first.height){
-      wrap.style.aspectRatio = first.width + ' / ' + first.height;
-    }
     var idx = 0;
     var img = document.createElement('img');
     img.className = 'card-photo';
     img.alt = item.nameEn || item.nameDe || 'Item photo';
+    img.addEventListener('load', function(){
+      if (img.naturalWidth && img.naturalHeight){
+        wrap.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+      }
+    }, { once: true });
     img.src = photoSrc(photos[0]);
     wrap.appendChild(img);
     if (photos.length > 1){
